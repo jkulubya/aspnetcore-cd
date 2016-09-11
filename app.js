@@ -19,21 +19,21 @@ app.post('/', function (req, res) {
   else{
     
     shell.echo('Changing into git repository');
-    shell.cd('~/tykrepository');
+    shell.exec('sudo -u tykuser cd ~/tykrepository');
 
     shell.echo('git pull-ing down latest bits');
-    if(shell.exec('git pull origin').code != 0){
+    if(shell.exec('sudo -u tykuser git pull origin').code != 0){
       shell.echo('Git pull failed');
     }
     
     shell.echo('Changing to project directory');
-    shell.cd('src/TYK');
+    shell.exec('sudo -u tykuser cd src/TYK');
     
     shell.echo('Running dotnet restore');
-    shell.exec('dotnet restore');
+    shell.exec('sudo -u tykuser dotnet restore');
     
     shell.echo('Running dotnet publish');
-    shell.exec('dotnet publish -f netcoreapp1.0 -c Release');
+    shell.exec('sudo -u tykuser dotnet publish -f netcoreapp1.0 -c Release');
 
     shell.echo('Copying to output directory');
     shell.exec('rsync -r --delete ~/tykrepository/src/TYK/bin/Release/netcoreapp1.0/publish/ /var/dotnettest/');
