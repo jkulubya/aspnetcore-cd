@@ -19,7 +19,7 @@ app.post('/', function (req, res) {
   else{
     
     shell.echo('Changing into git repository');
-    shell.exec('sudo -u tykuser cd ~/tykrepository');
+    shell.cd('~/tykrepository');
 
     shell.echo('git pull-ing down latest bits');
     if(shell.exec('sudo -u tykuser git pull origin').code != 0){
@@ -27,7 +27,7 @@ app.post('/', function (req, res) {
     }
     
     shell.echo('Changing to project directory');
-    shell.exec('sudo -u tykuser cd src/TYK');
+    shell.cd('src/TYK');
     
     shell.echo('Running dotnet restore');
     shell.exec('sudo -u tykuser dotnet restore');
