@@ -15,7 +15,6 @@ app.post('/', function (req, res) {
 
   if(payload.ref != 'refs/heads/master'){
     shell.echo('Push changes to master to trigger a build');
-    shell.exit(1);
   }
   else{
     
@@ -25,7 +24,6 @@ app.post('/', function (req, res) {
     shell.echo('git pull-ing down latest bits');
     if(shell.exec('git pull origin').code != 0){
       shell.echo('Git pull failed');
-      shell.exit(1);
     }
     
     shell.echo('Changing to project directory');
